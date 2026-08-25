@@ -5,6 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.InspectableProperty
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.MarqueeAnimationMode
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,7 +46,7 @@ class MainActivity : ComponentActivity() {
     }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun Greeting() {
     Scaffold(modifier = Modifier
@@ -85,6 +88,7 @@ fun Greeting() {
             )
             Button(
                 onClick = {
+                    output = text
 
                 },
                 modifier = Modifier
@@ -96,9 +100,15 @@ fun Greeting() {
             Text(
                 "${output}",
                 fontSize = 20.sp,
+                maxLines = 1,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
+                    .basicMarquee(
+                        iterations = Int.MAX_VALUE,
+                        animationMode = MarqueeAnimationMode.Immediately,
+                        velocity = sliderValue.dp
+                    )
             )
         }
     }

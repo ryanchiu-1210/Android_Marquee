@@ -64,6 +64,7 @@ fun Greeting() {
         var simpleFormat = SimpleDateFormat("YYYY-MM-dd HH:mm:ss")
         var time = simpleFormat.format(Date())
         var output by remember{ mutableStateOf("${time}")}
+
         Column (modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding)
@@ -78,7 +79,7 @@ fun Greeting() {
             )
             Slider(
                 value = sliderValue,
-                valueRange = 0f..10f,
+                valueRange = 0f..100f,
                 onValueChange = {
                     sliderValue=it
                 },

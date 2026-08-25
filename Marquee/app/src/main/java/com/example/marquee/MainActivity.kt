@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.InspectableProperty
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Label
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
@@ -25,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.marquee.ui.theme.MarqueeTheme
 import kotlinx.coroutines.internal.MainDispatcherFactory
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +58,9 @@ fun Greeting() {
     ){innerPadding->
         var text by remember { mutableStateOf("") }
         var sliderValue by remember { mutableStateOf(0f) }
+        var simpleFormat = SimpleDateFormat("YYYY-MM-dd HH:mm:ss")
+        var time = simpleFormat.format(Date())
+        var output by remember{ mutableStateOf("${time}")}
         Column (modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding)
@@ -86,9 +93,14 @@ fun Greeting() {
             ){
                 Text("更新文字", fontSize = 20.sp)
             }
-
+            Text(
+                "${output}",
+                fontSize = 20.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+            )
         }
-
     }
 
 }
